@@ -54,6 +54,7 @@ class GSRendererOGL final : public GSRendererHW
 		float UserHacks_TCO_x, UserHacks_TCO_y;
 		bool UserHacks_safe_fbmask;
 		bool UserHacks_merge_sprite;
+		bool UserHacks_HPO;
 
 		GSDeviceOGL::VSConstantBuffer vs_cb;
 		GSDeviceOGL::PSConstantBuffer ps_cb;
@@ -74,6 +75,7 @@ class GSRendererOGL final : public GSRendererHW
 	private:
 		inline void ResetStates();
 		inline void Lines2Sprites();
+		inline void RealignTargetTextureCoordinate(const GSTextureCache::Source* tex);
 		inline void SetupIA();
 		inline void EmulateTextureShuffleAndFbmask();
 		inline void EmulateChannelShuffle(GSTexture** rt, const GSTextureCache::Source* tex);
