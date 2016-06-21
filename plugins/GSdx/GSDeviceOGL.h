@@ -120,14 +120,17 @@ public:
 	struct alignas(32) VSConstantBuffer
 	{
 		GSVector4 Vertex_Scale_Offset;
+
+		GSVector4 TextureOffset;
+
 		GSVector2i DepthMask;
-		GSVector2 TextureScale;
+		GSVector2 PointSize;
 
 		VSConstantBuffer()
 		{
 			Vertex_Scale_Offset = GSVector4::zero();
 			DepthMask           = GSVector2i(0, 0);
-			TextureScale        = GSVector2(0, 0);
+			TextureOffset       = GSVector4(0, 0);
 		}
 
 		__forceinline bool Update(const VSConstantBuffer* cb)
@@ -135,7 +138,7 @@ public:
 			GSVector4i* a = (GSVector4i*)this;
 			GSVector4i* b = (GSVector4i*)cb;
 
-			if(!((a[0] == b[0]) & (a[1] == b[1])).alltrue())
+			if(!((a[0] == b[0]) & (a[1] == b[1]) & (a[2] == b[2])).alltrue())
 			{
 				a[0] = b[0];
 				a[1] = b[1];
