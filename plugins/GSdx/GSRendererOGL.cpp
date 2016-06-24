@@ -39,7 +39,7 @@ GSRendererOGL::GSRendererOGL()
 	UserHacks_TCO_y          = ((UserHacks_TCOffset >> 16) & 0xFFFF) / -1000.0f;
 	UserHacks_safe_fbmask    = theApp.GetConfigB("UserHacks_safe_fbmask");
 	UserHacks_merge_sprite   = theApp.GetConfigB("UserHacks_merge_pp_sprite");
-	UserHacks_HPO            = theApp.GetConfigB("UserHacks_HalfPixelOffset_New");
+	UserHacks_HPO            = theApp.GetConfigI("UserHacks_HalfPixelOffset_New");
 
 	m_prim_overlap = PRIM_OVERLAP_UNKNOW;
 	ResetStates();
@@ -50,7 +50,7 @@ GSRendererOGL::GSRendererOGL()
 		UserHacks_TCO_y          = 0;
 		UserHacks_safe_fbmask    = false;
 		UserHacks_merge_sprite   = false;
-		UserHacks_HPO            = false;
+		UserHacks_HPO            = 0;
 	}
 }
 
@@ -620,12 +620,22 @@ void GSRendererOGL::RealignTargetTextureCoordinate(const GSTextureCache::Source*
 
 	if (PRIM->FST) {
 
-		if (!linear && t_position == 8) {
-			half_offset.x = 8 - 8 / scale.x;
-			half_offset.y = 8 - 8 / scale.y;
-		} else if (linear && t_position == 16) {
-			half_offset.x = 16 - 16 / scale.x;
-			half_offset.y = 16 - 16 / scale.y;
+		if (UserHacks_HPO > 1) {
+			if (!linear && t_position == 8) {
+				half_offset.x = 8;
+				half_offset.y = 8;
+			} else if (linear && t_position == 16) {
+				half_offset.x = 16;
+				half_offset.y = 16;
+			}
+		} else {
+			if (!linear && t_position == 8) {
+				half_offset.x = 8 - 8 / scale.x;
+				half_offset.y = 8 - 8 / scale.y;
+			} else if (linear && t_position == 16) {
+				half_offset.x = 16 - 16 / scale.x;
+				half_offset.y = 16 - 16 / scale.y;
+			}
 		}
 
 		GL_INS("offset detected %f,%f t_pos %d (linear %d, scale %f)",
