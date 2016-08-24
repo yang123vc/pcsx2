@@ -69,7 +69,7 @@ VifUnpackSSE_Dynarec::VifUnpackSSE_Dynarec(const nVifStruct& vif_, const nVifBlo
 }
 
 #define makeMergeMask(x) {									\
-	x = ((x&0x40)>>6) | ((x&0x10)>>3) | (x&4) | ((x&1)<<3);	\
+	(x) = (((x)&0x40)>>6) | (((x)&0x10)>>3) | ((x)&4) | (((x)&1)<<3);	\
 }
 
 __fi void VifUnpackSSE_Dynarec::SetMasks(int cS) const {

@@ -21,7 +21,7 @@
 
 __aligned16 VU_Thread vu1Thread(CpuVU1, VU1);
 
-#define size_u32(x) (((u32)x+3u)>>2) // Rounds up a size in bytes for size in u32's
+#define size_u32(x) (((u32)(x)+3u)>>2) // Rounds up a size in bytes for size in u32's
 #define MTVU_ALWAYS_KICK 0
 #define MTVU_SYNC_MODE   0
 

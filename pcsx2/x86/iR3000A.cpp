@@ -49,7 +49,7 @@ u32 s_psxrecblocks[] = {0};
 uptr psxRecLUT[0x10000];
 uptr psxhwLUT[0x10000];
 
-#define HWADDR(mem) (psxhwLUT[mem >> 16] + (mem))
+#define HWADDR(mem) (psxhwLUT[(mem) >> 16] + (mem))
 
 static RecompiledCodeReserve* recMem = NULL;
 

@@ -316,7 +316,7 @@ wxListItemAttr* GameDatabaseListView::OnGetItemAttr(long item) const
 #define placeTextBox(wxBox, txt) {	\
 	sizer1	+= Label(_(txt));		\
 	sizer1	+= 5;					\
-	sizer1	+= wxBox | pxCenter;	\
+	sizer1	+= (wxBox) | pxCenter;	\
 	sizer1	+= 5;					\
 	sizer1	+= 5;					\
 }
@@ -418,8 +418,8 @@ void Panels::GameDatabasePanel::PopulateFields( const wxString& id ) {
 }
 
 #define writeTextBoxToDB(_key, _value) {								\
-	if (_value.IsEmpty()) 	GameDB->deleteKey(wxT(_key));				\
-	else					GameDB->writeString(wxT(_key), _value);		\
+	if ((_value).IsEmpty()) 	GameDB->deleteKey(wxT(_key));				\
+	else					GameDB->writeString(wxT(_key), (_value));		\
 }
 
 // returns True if the database is modified, or FALSE if no changes to save.

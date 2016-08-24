@@ -38,8 +38,8 @@
 #define W5 1609 /* 2048*sqrt (2)*cos (5*pi/16) */
 #define W6 1108 /* 2048*sqrt (2)*cos (6*pi/16) */
 #define W7 565  /* 2048*sqrt (2)*cos (7*pi/16) */
-#define clp(val,res)	res = (val < 0) ? 0 : ((val > 255) ? 255 : val);
-#define clp2(val,res)	res = (val < -255) ? -255 : ((val > 255) ? 255 : val);
+#define clp(val,res)	res = ((val) < 0) ? 0 : (((val) > 255) ? 255 : (val));
+#define clp2(val,res)	res = ((val) < -255) ? -255 : (((val) > 255) ? 255 : (val));
 
 /*
  * In legal streams, the IDCT output should be between -384 and +384.
@@ -60,9 +60,9 @@ do {					\
 #else
 #define BUTTERFLY(t0,t1,W0,W1,d0,d1)	\
 do {					\
-    int tmp = W0 * (d0 + d1);		\
-    t0 = tmp + (W1 - W0) * d1;		\
-    t1 = tmp - (W1 + W0) * d0;		\
+    int tmp = (W0) * ((d0) + (d1));		\
+    t0 = tmp + ((W1) - (W0)) * (d1);		\
+    t1 = tmp - ((W1) + (W0)) * (d0);		\
 } while (0)
 #endif
 

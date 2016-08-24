@@ -75,20 +75,20 @@
 
 // If we have an infinity value, then Overflow has occured.
 #define checkOverflow(xReg, cFlagsToSet, shouldReturn) {  \
-	if ( ( xReg & ~0x80000000 ) == PosInfinity ) {  \
+	if ( ( (xReg) & ~0x80000000 ) == PosInfinity ) {  \
 		/*Console.Warning( "FPU OVERFLOW!: Changing to +/-Fmax!!!!!!!!!!!!\n" );*/  \
-		xReg = ( xReg & 0x80000000 ) | posFmax;  \
-		_ContVal_ |= cFlagsToSet;  \
+		(xReg) = ( (xReg) & 0x80000000 ) | posFmax;  \
+		_ContVal_ |= (cFlagsToSet);  \
 		if ( shouldReturn ) { return; }  \
 	}  \
 }
 
 // If we have a denormal value, then Underflow has occured.
 #define checkUnderflow(xReg, cFlagsToSet, shouldReturn) {  \
-	if ( ( ( xReg & 0x7F800000 ) == 0 ) && ( ( xReg & 0x007FFFFF ) != 0 ) ) {  \
+	if ( ( ( (xReg) & 0x7F800000 ) == 0 ) && ( ( (xReg) & 0x007FFFFF ) != 0 ) ) {  \
 		/*Console.Warning( "FPU UNDERFLOW!: Changing to +/-0!!!!!!!!!!!!\n" );*/  \
-		xReg &= 0x80000000;  \
-		_ContVal_ |= cFlagsToSet;  \
+		(xReg) &= 0x80000000;  \
+		_ContVal_ |= (cFlagsToSet);  \
 		if ( shouldReturn ) { return; }  \
 	}  \
 }
@@ -99,9 +99,9 @@
 	( Denormals are counted as "0" )
 */
 #define checkDivideByZero(xReg, yDivisorReg, zDividendReg, cFlagsToSet1, cFlagsToSet2, shouldReturn) {  \
-	if ( ( yDivisorReg & 0x7F800000 ) == 0 ) {  \
-		_ContVal_ |= ( ( zDividendReg & 0x7F800000 ) == 0 ) ? cFlagsToSet2 : cFlagsToSet1;  \
-		xReg = ( ( yDivisorReg ^ zDividendReg ) & 0x80000000 ) | posFmax;  \
+	if ( ( (yDivisorReg) & 0x7F800000 ) == 0 ) {  \
+		_ContVal_ |= ( ( (zDividendReg) & 0x7F800000 ) == 0 ) ? (cFlagsToSet2) : (cFlagsToSet1);  \
+		(xReg) = ( ( (yDivisorReg) ^ (zDividendReg) ) & 0x80000000 ) | posFmax;  \
 		if ( shouldReturn ) { return; }  \
 	}  \
 }

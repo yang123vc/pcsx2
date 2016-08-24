@@ -53,7 +53,7 @@ u32 maxrecmem = 0;
 static __aligned16 uptr recLUT[_64kb];
 static __aligned16 uptr hwLUT[_64kb];
 
-#define HWADDR(mem) (hwLUT[mem >> 16] + (mem))
+#define HWADDR(mem) (hwLUT[(mem) >> 16] + (mem))
 
 u32 s_nBlockCycles = 0; // cycles of current block recompiling
 
